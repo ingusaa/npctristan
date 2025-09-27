@@ -142,14 +142,13 @@ justify-content: space-between;
             font-weight: 600;
             margin-bottom: 15px;
         }
-
         .token-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
+            padding: 15px 0;
         }
-
-        .token-item {
+.token-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -289,10 +288,13 @@ justify-content: space-between;
                     </div>
 </div>
             </div>
-            <div class="section-subtitle" style="margin-top: 20px;">Tokens</div>
-            <div class="token-list">
-                <div class="token-item">
-                    <div class="token-info">
+            <div class="section-subtitle" style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <span>Tokens</span>
+                <button id="toggleTokens" style="background: none; border: none; color: #ab9fee; cursor: pointer; font-size: 14px; font-weight: 500;">Hide</button>
+            </div>
+            <div class="token-list" id="tokensList">
+                <div class="token-item" style="margin-bottom: 10px;">
+<div class="token-info">
                         <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
 <div class="token-details">
                             <div class="token-name">Tristan Coin</div>
@@ -304,8 +306,8 @@ justify-content: space-between;
                         <div class="value-change">+2.5%</div>
                     </div>
                 </div>
-                <div class="token-item">
-                    <div class="token-info">
+                <div class="token-item" style="margin-bottom: 10px;">
+<div class="token-info">
                         <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
 <div class="token-details">
                             <div class="token-name">Tristan Coin</div>
@@ -317,8 +319,8 @@ justify-content: space-between;
                         <div class="value-change">+5.2%</div>
                     </div>
                 </div>
-                <div class="token-item">
-                    <div class="token-info">
+                <div class="token-item" style="margin-bottom: 10px;">
+<div class="token-info">
                         <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
 <div class="token-details">
                             <div class="token-name">Tristan Coin</div>
@@ -330,7 +332,7 @@ justify-content: space-between;
                         <div class="value-change">+12.3%</div>
                     </div>
                 </div>
-            </div>
+</div>
 <div id="createPopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;">
                 <div style="background-color: #222222; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px;">
                     <h3 style="color: #ab9fee; margin-bottom: 20px; font-size: 18px;">Create New Coin</h3>
@@ -429,8 +431,20 @@ const coinName = document.querySelector('#createPopup input[type="text"]:nth-chi
             console.log('Creating coin:', {coinName, ticker, description});
             closeCreatePopup();
         }
-
         document.addEventListener('DOMContentLoaded', function() {
+            // Toggle tokens visibility
+            const toggleBtn = document.getElementById('toggleTokens');
+            const tokensList = document.getElementById('tokensList');
+            
+            toggleBtn.addEventListener('click', function() {
+                if (tokensList.style.display === 'none') {
+                    tokensList.style.display = 'block';
+                    toggleBtn.textContent = 'Hide';
+                } else {
+                    tokensList.style.display = 'none';
+                    toggleBtn.textContent = 'Show';
+                }
+            });
 // Add click handlers for action buttons
             const actionButtons = document.querySelectorAll('.action-btn');
             actionButtons.forEach(button => {
