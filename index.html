@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Crypto Wallet Interface</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Wallet Interface</title>
     <style>
         * {
             margin: 0;
@@ -275,11 +275,63 @@ justify-content: space-between;
                 <button onclick="openCreatePopup()" style="flex: 1; padding: 12px; background-color: #222222; color: #ab9fee; border: none; border-radius: 12px; font-weight: 500; cursor: pointer;">Create</button>
                 <button onclick="openManagePopup()" style="flex: 1; padding: 12px; background-color: #222222; color: #ab9fee; border: none; border-radius: 12px; font-weight: 500; cursor: pointer;">Manage</button>
             </div>
-            <div id="managePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;">
-                <div style="background-color: #222222; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px;">
-                    <h3 style="color: #ab9fee; margin-bottom: 20px; font-size: 18px;">Manage</h3>
+            <div id="managePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
+<div style="background-color: #222222; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="color: #ab9fee; font-size: 18px;">Manage</h3>
+                        <button id="toggleManageTokens" style="background: none; border: none; color: #ab9fee; cursor: pointer; font-size: 14px; font-weight: 500;">Hide</button>
+                    </div>
+                    <div class="token-list" id="manageTokensList" style="margin-bottom: 20px;">
+                <div class="token-item" style="margin-bottom: 10px; cursor: pointer;" onclick="openPromotePopup()">
+<div class="token-info">
+                                <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="token-details">
+                                    <div class="token-name">Tristan Coin</div>
+                                    <div class="token-amount">0.0025 TRC</div>
+                                </div>
+                            </div>
+                            <div class="token-value">
+                                <div class="value-amount">$143.25</div>
+                                <div class="value-change">+2.5%</div>
+                            </div>
+                        </div>
+                        <div class="token-item" style="margin-bottom: 10px;">
+                            <div class="token-info">
+                                <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="token-details">
+                                    <div class="token-name">Tristan Coin</div>
+                                    <div class="token-amount">0.12 TRC</div>
+                                </div>
+                            </div>
+                            <div class="token-value">
+                                <div class="value-amount">$432.84</div>
+                                <div class="value-change">+5.2%</div>
+                            </div>
+                        </div>
+                        <div class="token-item" style="margin-bottom: 10px;">
+                            <div class="token-info">
+                                <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
+                                <div class="token-details">
+                                    <div class="token-name">Tristan Coin</div>
+                                    <div class="token-amount">3.5 TRC</div>
+                                </div>
+                            </div>
+                            <div class="token-value">
+                                <div class="value-amount">$612.50</div>
+                                <div class="value-change">+12.3%</div>
+                            </div>
+                        </div>
+                    </div>
                     <button onclick="rugPull()" style="width: 100%; padding: 12px; background-color: #ab9fee; color: #111111; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Rug pull</button>
-                    <div id="rugPullLoading" style="display: none; margin-top: 20px; text-align: center;">
+                    <div id="promotePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1001; justify-content: center; align-items: center;">
+<div style="background-color: #222222; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px;">
+                            <h3 style="color: #ab9fee; margin-bottom: 20px; font-size: 18px;">Promote Token</h3>
+                            <div id="promoteLogs" style="margin-bottom: 20px; height: 200px; overflow-y: auto; background-color: #111111; padding: 10px; border-radius: 8px; color: #ab9fee; font-family: monospace;"></div>
+                            <button id="promoteBtn" onclick="startPromotion()" style="width: 100%; padding: 12px; background-color: #ab9fee; color: #111111; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Promote</button>
+                            <button id="closePromoteBtn" onclick="closePromotePopup()" style="display: none; width: 100%; padding: 12px; background-color: #333; color: #ab9fee; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px;">Close</button>
+                        </div>
+                    </div>
+<div id="rugPullLoading" style="display: none; margin-top: 20px; text-align: center;">
                         <div style="width: 40px; height: 40px; border: 4px solid #ab9fee; border-radius: 50%; border-top-color: transparent; animation: spin 1s linear infinite; margin: 0 auto;"></div>
                         <p style="color: #ab9fee; margin-top: 10px;">Rug pulling...</p>
                     </div>
@@ -333,8 +385,8 @@ justify-content: space-between;
                     </div>
                 </div>
 </div>
-<div id="createPopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;">
-                <div style="background-color: #222222; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px;">
+            <div id="createPopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center;">
+<div style="background-color: #222222; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px;">
                     <h3 style="color: #ab9fee; margin-bottom: 20px; font-size: 18px;">Create New Coin</h3>
                     <div style="margin-bottom: 15px;">
                         <label style="display: block; color: #ab9fee; margin-bottom: 5px; font-size: 14px;">Coin name</label>
@@ -379,8 +431,42 @@ function openCreatePopup() {
             document.getElementById('rugPullLoading').style.display = 'none';
             document.getElementById('rugPullSuccess').style.display = 'none';
         }
+        function openPromotePopup() {
+            document.getElementById('promotePopup').style.display = 'flex';
+            document.getElementById('promoteLogs').textContent = '';
+            document.getElementById('promoteBtn').style.display = 'block';
+            document.getElementById('closePromoteBtn').style.display = 'none';
+        }
+
+        function closePromotePopup() {
+            document.getElementById('promotePopup').style.display = 'none';
+        }
+
+        function startPromotion() {
+            const logs = document.getElementById('promoteLogs');
+            const promoteBtn = document.getElementById('promoteBtn');
+            const closeBtn = document.getElementById('closePromoteBtn');
+            
+            promoteBtn.style.display = 'none';
+            
+            let count = 0;
+            const totalGroups = 34;
+            
+            const interval = setInterval(() => {
+                count++;
+                logs.textContent += `Sent to telegram groups (${count}/${totalGroups})\n`;
+                logs.scrollTop = logs.scrollHeight;
+                
+                if (count === totalGroups) {
+                    clearInterval(interval);
+                    logs.textContent += 'Promotion completed!\n';
+                    closeBtn.style.display = 'block';
+                }
+            }, 300);
+        }
+
         function rugPull() {
-            const loading = document.getElementById('rugPullLoading');
+const loading = document.getElementById('rugPullLoading');
             const success = document.getElementById('rugPullSuccess');
             
             loading.style.display = 'block';
@@ -443,6 +529,20 @@ const coinName = document.querySelector('#createPopup input[type="text"]:nth-chi
                 } else {
                     tokensList.style.display = 'none';
                     toggleBtn.textContent = 'Show';
+                }
+            });
+
+            // Toggle manage tokens visibility
+            const toggleManageBtn = document.getElementById('toggleManageTokens');
+            const manageTokensList = document.getElementById('manageTokensList');
+            
+            toggleManageBtn.addEventListener('click', function() {
+                if (manageTokensList.style.display === 'none') {
+                    manageTokensList.style.display = 'block';
+                    toggleManageBtn.textContent = 'Hide';
+                } else {
+                    manageTokensList.style.display = 'none';
+                    toggleManageBtn.textContent = 'Show';
                 }
             });
 // Add click handlers for action buttons
