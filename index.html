@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Wallet Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        body {
+            background-color: #111111;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .wallet-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #111111;
+            border-radius: 16px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222222;
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+        }
+.user-info, .header-actions {
+            position: relative;
+        }
+.header-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .header-btn {
+            background: none;
+            border: none;
+            color: #ab9fee;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 6px;
+            transition: background-color 0.2s;
+        }
+        
+        .header-btn:hover {
+            background-color: #222222;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .user-info img {
+            transition: transform 0.2s;
+        }
+        .user-info img:hover {
+            transform: scale(1.05);
+        }
+.username {
+            font-weight: 600;
+            font-size: 18px;
+            color: white;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+        }
+        .account {
+            font-size: 14px;
+            color: #ab9fee;
+            margin-top: 2px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+.balance-section {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #222222;
+background-color: #111111;
+        }
+.balance-amount {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .balance-change {
+            color: #ab9fee;
+font-size: 14px;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            padding: 15px 20px;
+            border-bottom: 1px solid #222222;
+justify-content: space-between;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            color: #e2e8f0;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .action-btn:hover {
+            color: #ffffff;
+        }
+.action-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #222222;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 18px;
+            color: #ab9fee;
+}
+.action-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+.tokens-section {
+            padding: 20px;
+            background-color: #111111;
+        }
+.section-subtitle {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .token-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .token-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .token-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .token-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #1e293b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .token-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .token-name {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .token-amount {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .token-value {
+            text-align: right;
+        }
+
+        .value-amount {
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+
+        .value-change {
+            font-size: 12px;
+            color: #ab9fee;
+}
+
+        .zero-value {
+            color: #94a3b8;
+        }
+    </style>
+    <style>
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="wallet-container">
+        <!-- Header -->
+        <div class="header" style="padding: 20px; border-radius: 16px 16px 0 0;">
+            <div class="user-info">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <img src="https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg" 
+                         style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #ab9fee;">
+                    <div>
+                        <div class="username">@npctristan</div>
+                        <div class="account">Account 1</div>
+                    </div>
+                </div>
+            </div>
+<div class="header-actions">
+                <button class="header-btn" onclick="openSettings()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+                <button class="header-btn" onclick="logout()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                </button>
+            </div>
+</div>
+        
+        <!-- Balance Section -->
+        <div class="balance-section">
+            <div class="balance-amount">$1,188.59</div>
+            <div class="balance-change">+121.50 +20%</div>
+</div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="action-btn">
+                <div class="action-icon">↓</div>
+                <div class="action-label">Receive</div>
+            </button>
+            <button class="action-btn">
+                <div class="action-icon">↑</div>
+                <div class="action-label">Send</div>
+            </button>
+            <button class="action-btn">
+                <div class="action-icon">⇄</div>
+                <div class="action-label">Swap</div>
+            </button>
+            <button class="action-btn">
+                <div class="action-icon">+</div>
+                <div class="action-label">Buy</div>
+            </button>
+        </div>
+<!-- Tokens Section -->
+        <div class="tokens-section">
+            <div class="section-subtitle">Coin Tools</div>
+            <div class="token-list" style="display: flex; gap: 10px; flex-direction: row;">
+                <button onclick="openCreatePopup()" style="flex: 1; padding: 12px; background-color: #222222; color: #ab9fee; border: none; border-radius: 12px; font-weight: 500; cursor: pointer;">Create</button>
+                <button onclick="openManagePopup()" style="flex: 1; padding: 12px; background-color: #222222; color: #ab9fee; border: none; border-radius: 12px; font-weight: 500; cursor: pointer;">Manage</button>
+            </div>
+            <div id="managePopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+                <div style="background-color: #222222; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px;">
+                    <h3 style="color: #ab9fee; margin-bottom: 20px; font-size: 18px;">Manage</h3>
+                    <button onclick="rugPull()" style="width: 100%; padding: 12px; background-color: #ab9fee; color: #111111; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Rug pull</button>
+                    <div id="rugPullLoading" style="display: none; margin-top: 20px; text-align: center;">
+                        <div style="width: 40px; height: 40px; border: 4px solid #ab9fee; border-radius: 50%; border-top-color: transparent; animation: spin 1s linear infinite; margin: 0 auto;"></div>
+                        <p style="color: #ab9fee; margin-top: 10px;">Rug pulling...</p>
+                    </div>
+                    <div id="rugPullSuccess" style="display: none; margin-top: 20px; text-align: center;">
+                        <p style="color: #ab9fee;">The meme coin was rug pulled!</p>
+                    </div>
+</div>
+            </div>
+            <div class="section-subtitle" style="margin-top: 20px;">Tokens</div>
+            <div class="token-list">
+                <div class="token-item">
+                    <div class="token-info">
+                        <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
+<div class="token-details">
+                            <div class="token-name">Tristan Coin</div>
+                            <div class="token-amount">0.0025 TRC</div>
+</div>
+                    </div>
+                    <div class="token-value">
+                        <div class="value-amount">$143.25</div>
+                        <div class="value-change">+2.5%</div>
+                    </div>
+                </div>
+                <div class="token-item">
+                    <div class="token-info">
+                        <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
+<div class="token-details">
+                            <div class="token-name">Tristan Coin</div>
+                            <div class="token-amount">0.12 TRC</div>
+</div>
+                    </div>
+                    <div class="token-value">
+                        <div class="value-amount">$432.84</div>
+                        <div class="value-change">+5.2%</div>
+                    </div>
+                </div>
+                <div class="token-item">
+                    <div class="token-info">
+                        <div class="token-icon" style="background-image: url('https://i.postimg.cc/pXW0ZrKD/D410232-E-76-A0-45-BB-AEB8-566-C3-D4-CF015-2.jpg'); background-size: cover; background-position: center;"></div>
+<div class="token-details">
+                            <div class="token-name">Tristan Coin</div>
+                            <div class="token-amount">3.5 TRC</div>
+</div>
+                    </div>
+                    <div class="token-value">
+                        <div class="value-amount">$612.50</div>
+                        <div class="value-change">+12.3%</div>
+                    </div>
+                </div>
+            </div>
+<div id="createPopup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+                <div style="background-color: #222222; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px;">
+                    <h3 style="color: #ab9fee; margin-bottom: 20px; font-size: 18px;">Create New Coin</h3>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; color: #ab9fee; margin-bottom: 5px; font-size: 14px;">Coin name</label>
+                        <input type="text" placeholder="Name your coin" style="width: 100%; padding: 12px; background-color: #111111; border: 1px solid #333; border-radius: 8px; color: white;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; color: #ab9fee; margin-bottom: 5px; font-size: 14px;">Ticker</label>
+                        <input type="text" placeholder="Add a coin ticker (e.g. DOGE)" style="width: 100%; padding: 12px; background-color: #111111; border: 1px solid #333; border-radius: 8px; color: white;">
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; color: #ab9fee; margin-bottom: 5px; font-size: 14px;">Description (Optional)</label>
+                        <textarea placeholder="Describe your coin" style="width: 100%; padding: 12px; background-color: #111111; border: 1px solid #333; border-radius: 8px; color: white; min-height: 80px;"></textarea>
+                    </div>
+                    <button onclick="createCoin()" style="width: 100%; padding: 12px; background-color: #ab9fee; color: #111111; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Create Coin</button>
+                </div>
+            </div>
+</div>
+    </div>
+    <script>
+        // Add interactive functionality
+        // Add CSS animation for loading spinner
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+        `;
+        document.head.appendChild(style);
+function openCreatePopup() {
+            document.getElementById('createPopup').style.display = 'flex';
+        }
+        function closeCreatePopup() {
+            document.getElementById('createPopup').style.display = 'none';
+        }
+
+        function openManagePopup() {
+            document.getElementById('managePopup').style.display = 'flex';
+        }
+        function closeManagePopup() {
+            document.getElementById('managePopup').style.display = 'none';
+            document.getElementById('rugPullLoading').style.display = 'none';
+            document.getElementById('rugPullSuccess').style.display = 'none';
+        }
+        function rugPull() {
+            const loading = document.getElementById('rugPullLoading');
+            const success = document.getElementById('rugPullSuccess');
+            
+            loading.style.display = 'block';
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                        success.style.display = 'block';
+                        
+                        setTimeout(() => {
+                            // Update balance and tokens
+                            document.querySelector('.balance-amount').textContent = '$9,432.84';
+                            document.querySelector('.balance-change').textContent = '+8,244.25 +693%';
+                            
+                            // Update token values
+                            const tokenValues = document.querySelectorAll('.value-amount');
+                            tokenValues[0].textContent = '$1,432.25';
+                            tokenValues[1].textContent = '$4,432.84';
+                            tokenValues[2].textContent = '$6,612.50';
+                            
+                            const tokenChanges = document.querySelectorAll('.value-change');
+                            tokenChanges[0].textContent = '+25%';
+                            tokenChanges[1].textContent = '+52%';
+                            tokenChanges[2].textContent = '+123%';
+                            
+                            closeManagePopup();
+                        }, 1000);
+                    }, 2000);
+}
+function openSettings() {
+            console.log('Settings opened');
+            // Add your settings modal logic here
+        }
+        
+        function logout() {
+            console.log('User logged out');
+            // Add your logout logic here
+        }
+        
+        function createCoin() {
+const coinName = document.querySelector('#createPopup input[type="text"]:nth-child(1)').value;
+            const ticker = document.querySelector('#createPopup input[type="text"]:nth-child(2)').value;
+            const description = document.querySelector('#createPopup textarea').value;
+            
+            if (!coinName || !ticker) {
+                alert('Please fill in required fields');
+                return;
+            }
+            
+            console.log('Creating coin:', {coinName, ticker, description});
+            closeCreatePopup();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+// Add click handlers for action buttons
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const label = this.querySelector('.action-label').textContent;
+                    console.log(`${label} button clicked`);
+                    // In a real app, this would trigger the appropriate action
+                });
+            });
+            // Close popup when clicking outside
+            document.getElementById('createPopup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeCreatePopup();
+                }
+            });
+            
+            document.getElementById('managePopup').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeManagePopup();
+                }
+            });
+});
+    </script>
+</body>
+</html>
